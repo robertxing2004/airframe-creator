@@ -14,8 +14,11 @@ class ConfigurationFinder:
         driver = webdriver.Chrome(options=self.options)
     
         try:
-            driver.get(f'https://www.seatguru.com/airlines/{operator.replace(" ", "_")}/information.php')
+            driver.get("https://www.seatguru.com/browseairlines/browseairlines.php")
+            link = driver.find_element( By.XPATH, f"//div[@class='browseAirlines']//a[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '{operator.lower()}')]")
+            driver.get(link.get_attribute('href'))
 
+          
             wrapper = driver.find_element(By.ID, "wrapper")
             page = wrapper.find_element(By.ID, "page")
             home_center = page.find_element(By.CLASS_NAME, "home_center")
@@ -49,6 +52,10 @@ class ConfigurationFinder:
                 choice = int(input(f"Select desired configuration: "))
                 seats = total_seats[choice]
             else:
+                first = 0
+                biz = 0
+                prem = 0
+                eco = 0
                 seat_classes = configs[0].find_elements(By.CLASS_NAME, "seat_class")
                 for seat_class in seat_classes:
                     count = seat_class.find_element(By.CLASS_NAME, "seat_count").text
