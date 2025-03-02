@@ -50,7 +50,7 @@ class ConfigurationFinder:
                     total_seats.append(first + biz + prem + eco)
                     print(f"{config + 1}. {(str(first) + " First | ") if first > 0 else ""}{(str(biz) + " Business | ") if biz > 0 else ""}{(str(prem) + " Premium | ") if prem > 0 else ""}{(str(eco) + " Economy") if eco > 0 else ""}")
                 choice = int(input(f"Select desired configuration: "))
-                seats = total_seats[choice]
+                seats = total_seats[choice - 1]
             else:
                 first = 0
                 biz = 0
