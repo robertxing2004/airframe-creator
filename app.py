@@ -5,10 +5,10 @@ def main():
     seatguru = ConfigurationFinder()
     airframes = AirframeFinder()
 
-    operator = input("Operator: ")
-    aircraft = input("Aircraft: ")
-    type_code = input("Type: ")
-    registration = input("Registration: ")
+    operator = input("Operator: ").capitalize()
+    aircraft = input("Aircraft: ").capitalize()
+    type_code = input("Type: ").capitalize()
+    registration = input("Registration: ").upper()
     
     seats = seatguru.scrape(operator, aircraft)
     print(f"{operator} {aircraft} {registration} configured with {seats} seats")
