@@ -1,5 +1,5 @@
 from src.seatguru import ConfigurationFinder
-from src.airframes import AirframeFinder
+from src.rzjets import AirframeFinder
 
 def main():
     seatguru = ConfigurationFinder()
@@ -7,16 +7,18 @@ def main():
 
     operator = input("Operator: ")
     aircraft = input("Aircraft: ")
+    type_code = input("Type: ")
     registration = input("Registration: ")
     
-    #seats = seatguru.scrape(operator, aircraft)
-    #print(f"{operator} {aircraft} {registration} configured with {seats} seats")
-    airframe = airframes.scrape(registration)
-    print(f"{airframe["Registration"]} found")
-    print(f"Model: {airframe["Model"]}")
-    print(f"Type: {airframe["Type"]}")
-    print(f"SELCAL: {airframe["Selcal"]}")
-    print(f"ICAO24: {airframe["ICAO24"]}")
+    seats = seatguru.scrape(operator, aircraft)
+    print(f"{operator} {aircraft} {registration} configured with {seats} seats")
+    airframe = airframes.scrape(operator, registration)
+    print(f"{airframe["registration"]} found")
+    print(f"Tail: {airframe["fin"]}")
+    print(f"Type: {type_code}")
+    print(f"Model: {airframe["aircraft"]}")
+    print(f"SELCAL: {airframe["selcal"]}")
+    print(f"ICAO24: {airframe["icao24"]}")
 
 if __name__ == "__main__":
     main()
