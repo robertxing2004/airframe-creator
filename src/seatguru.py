@@ -46,7 +46,7 @@ class ConfigurationFinder:
                         elif "Premium" in class_type:
                             prem = int(count)
                         elif "Economy" in class_type:
-                            eco = int(count)
+                            eco += int(count)
                     total_seats.append(first + biz + prem + eco)
                     print(f"{config + 1}. {(str(first) + " First | ") if first > 0 else ""}{(str(biz) + " Business | ") if biz > 0 else ""}{(str(prem) + " Premium | ") if prem > 0 else ""}{(str(eco) + " Economy") if eco > 0 else ""}")
                 choice = int(input(f"Select desired configuration: "))
@@ -67,7 +67,7 @@ class ConfigurationFinder:
                     elif "Premium" in class_type:
                         prem = int(count)
                     elif "Economy" in class_type:
-                        eco = int(count)
+                        eco += int(count)
                 seats = first + biz + prem + eco
 
             return seats
