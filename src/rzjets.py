@@ -30,7 +30,7 @@ class AirframeFinder:
 
             table = wait.until(EC.visibility_of_element_located((By.ID, "tableList")))
             tbody = table.find_element(By.TAG_NAME, "tbody")
-            row = tbody.find_element(By.XPATH, f"//tr[count(td) = 9 and .//td//a[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '{operator}')]]")
+            row = tbody.find_element(By.XPATH, f"//tr[count(td) = 9 and .//td//a[contains(normalize-space(.), '{operator}')]]")
 
             headers = ["Registration", "Aircraft", "MSN", "Tail", "Engine", "Name", "Operator", "Built", "SELCAL", "ICAO24"]
             value_cells = row.find_elements(By.TAG_NAME, "td")

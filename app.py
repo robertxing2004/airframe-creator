@@ -12,7 +12,7 @@ def main():
     seatguru = ConfigurationFinder()
     airframes = AirframeFinder()
 
-    operator = input("Operator: ").capitalize()
+    operator = input("Operator: ").title()
     aircraft = input("Aircraft: ").capitalize()
     type_code = input("Type: ").capitalize()
     registration = input("Registration: ").upper()
