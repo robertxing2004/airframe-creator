@@ -14,7 +14,7 @@ def main():
 
     operator = input("Operator: ").title()
     aircraft = input("Aircraft: ").capitalize()
-    type_code = input("Type: ").capitalize()
+    type_code = input("Type: ").upper()
     registration = input("Registration: ").upper()
     
     seats = seatguru.scrape(operator, aircraft)
