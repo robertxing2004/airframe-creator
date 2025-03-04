@@ -1,6 +1,13 @@
 from src.seatguru import ConfigurationFinder
 from src.rzjets import AirframeFinder
 
+def reformat(aircraft):
+    name = aircraft.split()
+    new_name = name[-1]
+    if new_name[0] == "7":
+        new_name = "B" + new_name
+    return new_name
+
 def main():
     seatguru = ConfigurationFinder()
     airframes = AirframeFinder()
@@ -15,6 +22,8 @@ def main():
         seats = int(input("Manually enter seat configuration: "))
     print(f"{operator} {aircraft} {registration} configured with {seats} seats")
     airframe = airframes.scrape(operator, registration)
+
+    airframe["Aircraft"] = reformat(airframe["Aircraft"])
 
     print(f"{airframe["Registration"]} found")
     print(f"Type: {type_code}")
