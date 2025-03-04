@@ -19,7 +19,7 @@ def main():
     print(f"{airframe["Registration"]} found")
     print(f"Type: {type_code}")
     for key in airframe:
-        if key in ["MSN", "Engine", "Name", "Operator", "Built"]:
+        if key in ["Registration", "MSN", "Engine", "Name", "Operator", "Built"]:
             continue
         if airframe[key] == "":
             airframe[key] = input(f"{key}: ")
