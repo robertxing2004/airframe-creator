@@ -19,7 +19,8 @@ def main():
     
     seats = seatguru.scrape(operator, aircraft)
     if seats == 0:
-        seats = int(input("Manually enter seat configuration: "))
+        manual = input("Manually enter seat configuration: ")
+        seats = int(manual) if manual.isdigit() else 0
     print(f"{operator} {aircraft} {registration} configured with {seats} seats")
     airframe = airframes.scrape(operator, registration)
 
