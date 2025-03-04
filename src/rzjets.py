@@ -32,7 +32,7 @@ class AirframeFinder:
             tbody = table.find_element(By.TAG_NAME, "tbody")
             row = tbody.find_element(By.XPATH, f"//tr[count(td) = 9 and .//td//a[contains(normalize-space(.), '{operator}')]]")
 
-            headers = ["registration", "aircraft", "cn", "fin", "engine", "name", "operator", "built", "selcal", "icao24"]
+            headers = ["Registration", "Aircraft", "MSN", "Tail", "Engine", "Name", "Operator", "Built", "SELCAL", "ICAO24"]
             value_cells = row.find_elements(By.TAG_NAME, "td")
             values = [value.text.strip() for value in value_cells]
             icao_row = row.find_element(By.XPATH, "./following-sibling::tr[1]")
