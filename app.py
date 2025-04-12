@@ -9,23 +9,30 @@ def reformat(aircraft):
     return new_name
 
 def main():
+    # initialize scrapers
     seatguru = ConfigurationFinder()
     airframes = AirframeFinder()
 
+    # prompt user inputs for airline, aircraft, ICAO type code, and civil registration
     operator = input("Operator: ").title()
-    aircraft = input("Aircraft: ").capitalize()
+    aircraft = input("Aircraft: ").upper()
     type_code = input("Type: ").upper()
     registration = input("Registration: ").upper()
     
+    # use airline and aircraft to find seating configs
     seats = seatguru.scrape(operator, aircraft)
     if seats == 0:
+        # currently skips the process if source lacks the config, should implement aerolopa as primary source
         manual = input("Manually enter seat configuration: ")
         seats = int(manual) if manual.isdigit() else 0
     print(f"{operator} {aircraft} {registration} configured with {seats} seats")
-    airframe = airframes.scrape(operator, registration)
 
+    # use registration to find airframe information
+    airframe = airframes.scrape(registration)
+    # reformat aircraft name to ICAO convention: 777-300ER -> B777-300ER
     airframe["Aircraft"] = reformat(airframe["Aircraft"])
 
+    # print relevant data, will later change to feed to simbrief directly
     print(f"{airframe["Registration"]} found")
     print(f"Type: {type_code}")
     for key in airframe:

@@ -14,11 +14,12 @@ class ConfigurationFinder:
         driver = webdriver.Chrome(options=self.options)
     
         try:
+            # find airline page on seatguru
             driver.get("https://www.seatguru.com/browseairlines/browseairlines.php")
             link = driver.find_element( By.XPATH, f"//div[@class='browseAirlines']//a[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '{operator.lower()}')]")
             driver.get(link.get_attribute('href'))
 
-          
+            # find table of aircraft configs
             wrapper = driver.find_element(By.ID, "wrapper")
             page = wrapper.find_element(By.ID, "page")
             home_center = page.find_element(By.CLASS_NAME, "home_center")
@@ -26,8 +27,10 @@ class ConfigurationFinder:
             container = content.find_element(By.CLASS_NAME, "container")
             content_narrow = container.find_element(By.CLASS_NAME, "content-narrow.overviewContainer.boxTop17")
 
+            # find desired aircraft
             configs = content_narrow.find_elements(By.XPATH, f"//div[contains(@class, 'aircraft_seats')]/a[contains(text(), '{aircraft}') and contains(@href, '{aircraft}')]/..")
             if len(configs) > 1:
+                # some operators havve multiple configurations for the same aircraft, allow user to select a config
                 print(f"Found multiple configurations for {operator} {aircraft}:")
                 total_seats = []
                 for config, seats in enumerate(configs):
@@ -52,6 +55,7 @@ class ConfigurationFinder:
                 choice = int(input(f"Select desired configuration: "))
                 seats = total_seats[choice - 1]
             else:
+                # only one config found
                 first = 0
                 biz = 0
                 prem = 0
@@ -73,6 +77,7 @@ class ConfigurationFinder:
             return seats
         
         except Exception as e:
+          # if aircraft config is not found
           print(f"Configuration {operator} {aircraft} not found: {str(e)}")
           return 0
             
